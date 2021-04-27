@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+  mysql:
+    container_name: mysql
+    build: ../docker/mysql
+    environment:
+      MYSQL_DATABASE: mysqldb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
+      - mysql_db:/var/lib/mysql
+  backend:
+    container_name: backend
+    build: ./spring
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    tty: true
+    volumes:
+      - ../spring_project:/srv:cached
+    working_dir: /srv
+  frontend:
+    container_name: frontend
+    build: ./vue
+    ports:
+      - 9000:8080
+    volumes:
+      - ../vue_project:/usr/src/app:cached
+    stdin_open: true
+    tty: true
+volumes:
+  mysql_db:
+    driver: local
