@@ -1,0 +1,14 @@
+{
+    "name": "spring-vue-mysql",
+    "workspaceFolder": "/srv",
+    "dockerComposeFile": "../docker/docker-compose.yml",
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/bash",     
+    },
+    "service": "backend", //attachするコンテナはspringが入っているコンテナを指定
+    "extensions": [
+        "vscjava.vscode-java-pack", // JavaExtensionPack
+        "pivotal.vscode-boot-dev-pack", // Spring Boot Extension Pack
+        "gabrielbb.vscode-lombok" //Lombok Annotations Support For VS Code
+    ],
+}
